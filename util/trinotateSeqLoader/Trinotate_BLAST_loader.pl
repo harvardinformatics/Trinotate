@@ -25,7 +25,7 @@ my $usage = <<__EOUSAGE__;
 #
 # --prog <string>      blastp|blastx
 #
-# --dbtype <string>     Swissprot|TrEMBL
+# --dbtype <string>     Swissprot|TrEMBL|bloodfeed
 #
 ###########################################################################
 
@@ -68,7 +68,7 @@ unless ($prog =~ /blastp|blastx/i) {
     die "Error, do not recognize prog type: $prog ";
 }
 
-unless ($dbtype =~ /^(Swissprot|TrEMBL)$/) {
+unless ($dbtype =~ /^(Swissprot|TrEMBL|bloodfeed)$/) {
     die "Error, do not recognize database type: $dbtype";
 }
 

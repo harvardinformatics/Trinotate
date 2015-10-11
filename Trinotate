@@ -23,12 +23,14 @@ my $usage = <<_EOUSAGE_;
              LOAD_pfam <file>
              LOAD_tmhmm <file>
              LOAD_signalp <file>
+             LOAD_bloodfeed_blastp <file>
 
           * Trinity transcript search results:
 
              LOAD_swissprot_blastx <file>
              LOAD_trembl_blastx <file>
              LOAD_rnammer <file>
+             LOAD_bloodfeed_blastx <file>
              
           * report generation:
 
@@ -54,6 +56,7 @@ if ($command ne 'report' && ! @ARGV) {
 
 my %commands = map { + $_ => 1 } qw(LOAD_swissprot_blastp LOAD_swissprot_blastx 
                                     LOAD_trembl_blastp LOAD_trembl_blastx
+                                    LOAD_bloodfeed_blastp LOAD_bloodfeed_blastx
                                     LOAD_pfam LOAD_tmhmm LOAD_signalp LOAD_rnammer report init);
 
 unless (exists $commands{$command}) {
@@ -74,11 +77,13 @@ my %command_to_params = (
                           'LOAD_pfam'  => "$loaders_dir/Trinotate_PFAM_loader.pl --sqlite $sqlite_db --pfam $ARGV[0]",
                           'LOAD_tmhmm' => "$loaders_dir/Trinotate_TMHMM_loader.pl --sqlite $sqlite_db --tmhmm $ARGV[0]",
                           'LOAD_signalp' => "$loaders_dir/Trinotate_SIGNALP_loader.pl --sqlite $sqlite_db --signalp $ARGV[0]",
+                          'LOAD_bloodfeed_blastp' => "$loaders_dir/Trinotate_BLAST_loader.pl --sqlite $sqlite_db --outfmt6 $ARGV[0] --prog blastp --dbtype bloodfeed",
                           
                           # transcript-based
                           'LOAD_swissprot_blastx' => "$loaders_dir/Trinotate_BLAST_loader.pl --sqlite $sqlite_db --outfmt6 $ARGV[0] --prog blastx --dbtype Swissprot",
                           'LOAD_trembl_blastx' => "$loaders_dir/Trinotate_BLAST_loader.pl --sqlite $sqlite_db --outfmt6 $ARGV[0] --prog blastx --dbtype TrEMBL",
                           'LOAD_rnammer' => "$loaders_dir/Trinotate_RNAMMER_loader.pl --sqlite $sqlite_db --rnammer $ARGV[0]",
+                          'LOAD_bloodfeed_blastx' => "$loaders_dir/Trinotate_BLAST_loader.pl --sqlite $sqlite_db --outfmt6 $ARGV[0] --prog blastx --dbtype bloodfeed",
                           
                           );
 
